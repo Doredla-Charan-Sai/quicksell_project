@@ -32,6 +32,13 @@ class MainDisplay extends Component {
     };
 
     componentDidMount() {
+        const savedGrouping = localStorage.getItem('grouping');
+        const savedOrdering = localStorage.getItem('ordering');
+        
+        this.setState({
+            grouping: savedGrouping || this.state.grouping, 
+            ordering: savedOrdering || this.state.ordering  
+        });
         this.getApiCall();
     }
 
@@ -59,11 +66,15 @@ class MainDisplay extends Component {
     };
 
     handleGroupingChange = (event) => {
-        this.setState({ grouping: event.target.value });
+        const newGrouping = event.target.value;
+        this.setState({ grouping: newGrouping });
+        localStorage.setItem('grouping', newGrouping);
     };
 
     handleOrderingChange = (event) => {
-        this.setState({ ordering: event.target.value });
+        const newOrdering = event.target.value;
+        this.setState({ ordering: newOrdering });
+        localStorage.setItem('ordering', newOrdering); 
     };
 
     groupByField = (tickets, field) => {
